@@ -384,6 +384,8 @@
 
 .abt-exp__arrow {
   display: inline-flex;
+  align-self: start;
+  margin-top: 3px;
   color: var(--pf-dim);
   transition:
     transform 0.45s var(--pf-ease),

@@ -371,11 +371,11 @@ export default function Navbar() {
         .join(' ')}
     >
       <div className="mn-nav__inner">
-        <Link className="mn-nav__brand" to="/" data-brand aria-label="Manara — home">
+        <Link className="mn-nav__brand" to="/" data-brand aria-label="Orbit Studio — home">
           <span className="mn-nav__mark">
             <BrandSymbol />
           </span>
-          <span className="mn-nav__wordmark">Manara</span>
+          <span className="mn-nav__wordmark">Orbit Studio</span>
         </Link>
 
         <nav className="mn-nav__desktop" aria-label="Primary" ref={desktopRef}>
