@@ -13,34 +13,8 @@ import '../../css/CinematicLoader.css'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
-const STORAGE_KEY = 'orbit-intro-played'
 const INTRO_TIMEOUT_MS = 7000
 const REVEAL_LABEL_TIME = 3.85
-
-let consumedThisSession = false
-
-function introAlreadyPlayed(): boolean {
-  if (consumedThisSession) return true
-  try {
-    if (new URLSearchParams(window.location.search).has('intro')) return false
-  } catch {
-    /* ignore */
-  }
-  try {
-    return window.sessionStorage.getItem(STORAGE_KEY) === '1'
-  } catch {
-    return false
-  }
-}
-
-function rememberIntroPlayed(): void {
-  consumedThisSession = true
-  try {
-    window.sessionStorage.setItem(STORAGE_KEY, '1')
-  } catch {
-    /* storage unavailable — fail gracefully */
-  }
-}
 
 const BUBBLES = Array.from({ length: 16 }, (_, index) => ({
   left: (index * 6.3 + 4) % 100,
@@ -56,7 +30,9 @@ type Props = {
 
 export default function CinematicLoader({ children }: Props) {
   const reduced = useReducedMotion()
-  const [playing, setPlaying] = useState(() => !reduced && !introAlreadyPlayed())
+  /* The intro plays on every fresh page load (including refresh). It never
+     replays on client-side route changes because the loader stays mounted. */
+  const [playing, setPlaying] = useState(() => !reduced)
 
   const rootRef = useRef<HTMLDivElement>(null)
   const skipRef = useRef<HTMLButtonElement>(null)
@@ -68,7 +44,6 @@ export default function CinematicLoader({ children }: Props) {
   const initialKeyRef = useRef(location.key)
 
   const finish = useCallback(() => {
-    rememberIntroPlayed()
     setPlaying(false)
   }, [])
 
