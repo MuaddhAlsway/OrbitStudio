@@ -50,12 +50,7 @@ export default function ServiceArchitecture({ service }: { service: Service }) {
         <ol className="sdp-arch" role="list">
           {service.architecture.steps.map((step, i) => (
             <li className="sdp-arch__step" key={step.label}>
-              <div
-                className="sdp-arch__node"
-                tabIndex={0}
-                role="listitem"
-                aria-label={`${step.label}: ${step.note}`}
-              >
+              <div className="sdp-arch__node">
                 <span className="sdp-arch__index">{String(i + 1).padStart(2, '0')}</span>
                 <span className="sdp-arch__label">{step.label}</span>
                 <span className="sdp-arch__note">{step.note}</span>

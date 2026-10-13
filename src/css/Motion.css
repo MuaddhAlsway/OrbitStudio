@@ -1,0 +1,58 @@
+/* ==================================================================
+   ORBIT STUDIO — motion layer
+   Shared helpers for the reusable motion primitives (src/motion) and
+   the non-blocking route transition. Colours inherit from the page.
+   ================================================================== */
+
+/* --- Route transition ---------------------------------------------- */
+.route-fade {
+  /* opacity-only fade; no transform so pinned ScrollTriggers are safe */
+  will-change: opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-fade {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+
+/* --- TextReveal ----------------------------------------------------- */
+.mr-text {
+  display: inline;
+}
+
+.mr-text__mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.04em;
+}
+
+.mr-text__word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Suspense placeholder while a code-split route loads — dark, no white. */
+.route-fallback {
+  min-height: 100vh;
+  background-color: var(--pf-bg, #111c2a);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reduced-motion safety: any element that a primitive might hide is  */
+/*  forced back to its resting state.                                  */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .mr-fade-up,
+  .mr-section-reveal,
+  .mr-stagger,
+  .mr-parallax,
+  .mr-image {
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    clip-path: none !important;
+  }
+}

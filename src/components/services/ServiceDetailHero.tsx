@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { useIntroReady } from '../../motion'
 import ServiceVisual from './ServiceVisual'
 import type { Service } from '../../data/services'
 
@@ -9,9 +10,11 @@ gsap.registerPlugin(useGSAP)
 
 export default function ServiceDetailHero({ service }: { service: Service }) {
   const root = useRef<HTMLElement | null>(null)
+  const introReady = useIntroReady()
 
   useGSAP(
     () => {
+      if (!introReady) return
       const mm = gsap.matchMedia()
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -19,12 +22,11 @@ export default function ServiceDetailHero({ service }: { service: Service }) {
         tl.from('.sdp-eyebrow', { y: 16, opacity: 0, duration: 0.6 })
           .from('.sdp-hero__title-line', { yPercent: 112, duration: 1.05, stagger: 0.12, ease: 'power4.out' }, 0.08)
           .from('.sdp-hero__lead', { y: 20, opacity: 0, duration: 0.8 }, 0.4)
-          .from('.sdp-hero__note', { y: 14, opacity: 0, duration: 0.6 }, 0.5)
           .from('.sdp-hero__actions > *', { y: 16, opacity: 0, duration: 0.6, stagger: 0.08 }, 0.54)
           .from('.sdp-hero__visual-inner', { opacity: 0, y: 30, duration: 0.9 }, 0.36)
       })
     },
-    { scope: root },
+    { scope: root, dependencies: [introReady], revertOnUpdate: true },
   )
 
   return (

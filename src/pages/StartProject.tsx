@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { useIntroReady } from '../motion'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { SERVICE_OPTIONS } from '../data/brief'
 import { getWhatsAppUrl, isWhatsAppConfigured } from '../config/whatsapp'
@@ -30,6 +31,7 @@ const PROCESS = [
 
 export default function StartProject() {
   const root = useRef<HTMLElement | null>(null)
+  const introReady = useIntroReady()
   const whatsappUrl = getWhatsAppUrl()
 
   useEffect(() => {
@@ -48,6 +50,7 @@ export default function StartProject() {
 
   useGSAP(
     () => {
+      if (!introReady) return
       const mm = gsap.matchMedia()
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -74,7 +77,7 @@ export default function StartProject() {
         })
       })
     },
-    { scope: root },
+    { scope: root, dependencies: [introReady], revertOnUpdate: true },
   )
 
   return (

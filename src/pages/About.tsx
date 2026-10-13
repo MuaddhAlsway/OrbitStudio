@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { useIntroReady } from '../motion'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { SERVICES } from '../data/services'
 import { BELIEFS, MISSION, STORY } from '../data/about'
@@ -48,6 +49,7 @@ function EngineeringCanvas() {
 
 export default function About() {
   const root = useRef<HTMLElement | null>(null)
+  const introReady = useIntroReady()
 
   usePageMeta(
     'About',
@@ -56,6 +58,7 @@ export default function About() {
 
   useGSAP(
     () => {
+      if (!introReady) return
       const mm = gsap.matchMedia()
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -110,7 +113,7 @@ export default function About() {
         })
       })
     },
-    { scope: root },
+    { scope: root, dependencies: [introReady], revertOnUpdate: true },
   )
 
   return (

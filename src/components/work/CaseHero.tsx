@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { useIntroReady } from '../../motion'
 import type { CaseStudy } from '../../data/caseStudies'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
@@ -31,9 +32,11 @@ function GitHubMark() {
 
 export default function CaseHero({ study }: { study: CaseStudy }) {
   const root = useRef<HTMLElement | null>(null)
+  const introReady = useIntroReady()
 
   useGSAP(
     () => {
+      if (!introReady) return
       const mm = gsap.matchMedia()
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -57,7 +60,7 @@ export default function CaseHero({ study }: { study: CaseStudy }) {
           .from('.cs-hero__img', { scale: 1.12, duration: 1.35 }, 0.34)
       })
     },
-    { scope: root },
+    { scope: root, dependencies: [introReady], revertOnUpdate: true },
   )
 
   return (

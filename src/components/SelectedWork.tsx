@@ -1,65 +1,23 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { PROJECTS, type Project } from '../data/projects'
 import '../css/SelectedWork.css'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 type ArtKind = 'nova' | 'property' | 'forever' | 'cinema'
 
-interface Project {
-  title: string
-  category: string
-  href: string
-  art: ArtKind
-  image?: string
-  live?: string
+/** Decorative fallback drawn only if a project image fails to load. */
+const FALLBACK_ART: Record<string, ArtKind> = {
+  'trq-studio': 'property',
+  'lakum-artspace': 'forever',
+  'td-logistics': 'cinema',
+  'mu-commerce': 'nova',
+  estate: 'property',
 }
-
-const PROJECTS: Project[] = [
-  {
-    title: 'TRQ Studio',
-    category: 'Bilingual Portfolio & CMS Platform',
-    href: '/work/trq-studio',
-    art: 'property',
-    image: '/Project/TRQ%20Studio%20Interior%20Design%20Showcase.png',
-    live: 'https://trqstudio.com/',
-  },
-  {
-    title: 'LAKUM Artspace',
-    category: 'Event Management & Cultural Platform',
-    href: '/work/lakum-artspace',
-    art: 'forever',
-    image: '/Project/Lakoum%20Artspace%20Website%20Showcase.png',
-    live: 'https://lakumartspace.com/',
-  },
-  {
-    title: 'TD Logistics',
-    category: 'Logistics & Business Operations Platform',
-    href: '/work/td-logistics',
-    art: 'cinema',
-    image: '/Project/TD%20Logistics%20Website%20Showcase.png',
-    live: 'https://tdlogistics.co/',
-  },
-  {
-    title: 'MUCOMMERANCE',
-    category: 'Full-Stack E-Commerce Platform',
-    href: '/work/mu-commerce',
-    art: 'nova',
-    image: '/Project/MU%20Commerce%20Luxury%20E-Commerce%20Showcase.png',
-    live: 'https://mu-commerce-frontend.pages.dev/',
-  },
-  {
-    title: 'ESTATE',
-    category: 'Full-Stack Real Estate Platform',
-    href: '/work/estate',
-    art: 'property',
-    image: '/Project/Estate%20Platform_%20Luxury%20Web%20Showcase.png',
-    live: 'https://realstate-1-ypty.onrender.com/',
-  },
-]
 
 function Art({ kind }: { kind: ArtKind }) {
   if (kind === 'nova') {
@@ -147,6 +105,32 @@ function Art({ kind }: { kind: ArtKind }) {
       <rect className="sw-art__accent" x="80" y="300" width="200" height="1.5" rx="1" />
       <circle className="sw-art__dot-accent" cx="410" cy="292" r="9" />
     </svg>
+  )
+}
+
+function WorkMedia({ project, priority }: { project: Project; priority: boolean }) {
+  const [failed, setFailed] = useState(false)
+  const showImage = Boolean(project.image) && !failed
+
+  return (
+    <figure className="sw-project__media">
+      <div className={`sw-project__art${showImage ? ' sw-project__art--media' : ''}`}>
+        {showImage ? (
+          <img
+            className="sw-project__img"
+            src={project.image}
+            alt={`${project.title} — ${project.category}`}
+            width={1672}
+            height={941}
+            loading={priority ? 'eager' : 'lazy'}
+            decoding="async"
+            onError={() => setFailed(true)}
+          />
+        ) : (
+          <Art kind={FALLBACK_ART[project.id] ?? 'nova'} />
+        )}
+      </div>
+    </figure>
   )
 }
 
@@ -307,27 +291,7 @@ export default function SelectedWork() {
                   aria-label={`${project.title} — ${project.category}`}
                 />
 
-                <figure className="sw-project__media">
-                  <div
-                    className={`sw-project__art${
-                      project.image ? ' sw-project__art--media' : ''
-                    }`}
-                  >
-                    {project.image ? (
-                      <img
-                        className="sw-project__img"
-                        src={project.image}
-                        alt={`${project.title} — ${project.category}`}
-                        width={1672}
-                        height={941}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    ) : (
-                      <Art kind={project.art} />
-                    )}
-                  </div>
-                </figure>
+                <WorkMedia project={project} priority={i === 0} />
 
                 <div className="sw-project__meta">
                   <div className="sw-project__meta-top">

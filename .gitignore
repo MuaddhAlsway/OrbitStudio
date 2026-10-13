@@ -18,6 +18,9 @@ data
 .env.*
 !.env.example
 
+# Vercel
+.vercel
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

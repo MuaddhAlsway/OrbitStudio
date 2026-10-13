@@ -67,7 +67,7 @@ export default function EngineeringDiagram() {
         <ol className="svc-diagram__flow" role="list">
           {LAYERS.map((layer, i) => (
             <li className="svc-diagram__step" key={layer.label}>
-              <div className="svc-diagram__node" tabIndex={0} role="listitem" aria-label={`${layer.label}: ${layer.note}`}>
+              <div className="svc-diagram__node">
                 <span className="svc-diagram__index">{String(i + 1).padStart(2, '0')}</span>
                 <span className="svc-diagram__label">{layer.label}</span>
                 <span className="svc-diagram__note">{layer.note}</span>

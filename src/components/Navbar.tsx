@@ -11,6 +11,8 @@ import { gsap } from 'gsap'
 import { SERVICES } from '../data/services'
 import WhatsAppIcon from './icons/WhatsAppIcon'
 import { getWhatsAppUrl } from '../config/whatsapp'
+import { useReducedMotion } from '../hooks/useReducedMotion'
+import { hasPlayed, markPlayed, useIntroReady } from '../motion'
 import '../css/navbar.css'
 
 /* ------------------------------------------------------------------ */
@@ -113,24 +115,6 @@ function ChevronDown({ className }: { className?: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Hooks                                                              */
-/* ------------------------------------------------------------------ */
-
-function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(false)
-
-  useEffect(() => {
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => setReduced(query.matches)
-    update()
-    query.addEventListener('change', update)
-    return () => query.removeEventListener('change', update)
-  }, [])
-
-  return reduced
-}
-
-/* ------------------------------------------------------------------ */
 /*  Navbar                                                             */
 /* ------------------------------------------------------------------ */
 
@@ -138,10 +122,12 @@ export default function Navbar() {
   const headerRef = useRef<HTMLElement | null>(null)
   const desktopRef = useRef<HTMLElement | null>(null)
   const mobileRef = useRef<HTMLDivElement | null>(null)
+  const toggleRef = useRef<HTMLButtonElement | null>(null)
   const hoverTimer = useRef<number | null>(null)
   const closeTimer = useRef<number | null>(null)
 
-  const reduced = usePrefersReducedMotion()
+  const reduced = useReducedMotion()
+  const introReady = useIntroReady()
   const { pathname } = useLocation()
   const [scrolled, setScrolled] = useState(false)
   const [openMenu, setOpenMenu] = useState<string | null>(null)
@@ -158,11 +144,12 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  /* Entrance ------------------------------------------------------- */
+  /* Entrance — waits for the intro and only plays once per session ---- */
   useLayoutEffect(() => {
     const el = headerRef.current
-    if (!el || reduced) return
+    if (!el || reduced || !introReady || hasPlayed('nav-entrance')) return
 
+    markPlayed('nav-entrance')
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.7 } })
       tl.from('[data-brand]', { y: -10, opacity: 0 })
@@ -171,7 +158,7 @@ export default function Navbar() {
     }, el)
 
     return () => ctx.revert()
-  }, [reduced])
+  }, [reduced, introReady])
 
   /* Dropdown reveal ------------------------------------------------ */
   useLayoutEffect(() => {
@@ -225,6 +212,39 @@ export default function Navbar() {
     document.body.style.overflow = 'hidden'
     return () => {
       document.body.style.overflow = previous
+    }
+  }, [mobileOpen])
+
+  /* Mobile menu focus handling ------------------------------------- */
+  useEffect(() => {
+    if (!mobileOpen) return undefined
+    const root = mobileRef.current
+    if (!root) return undefined
+
+    const scope = root.querySelector<HTMLElement>('[data-mobile-panel]') ?? root
+    const previouslyFocused = document.activeElement as HTMLElement | null
+    const focusables = scope.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    )
+    focusables[0]?.focus()
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab' || focusables.length === 0) return
+      const firstEl = focusables[0]
+      const lastEl = focusables[focusables.length - 1]
+      if (event.shiftKey && document.activeElement === firstEl) {
+        event.preventDefault()
+        lastEl.focus()
+      } else if (!event.shiftKey && document.activeElement === lastEl) {
+        event.preventDefault()
+        firstEl.focus()
+      }
+    }
+
+    scope.addEventListener('keydown', onKeyDown)
+    return () => {
+      scope.removeEventListener('keydown', onKeyDown)
+      previouslyFocused?.focus?.()
     }
   }, [mobileOpen])
 
@@ -445,6 +465,7 @@ export default function Navbar() {
           <button
             type="button"
             className="mn-nav__toggle"
+            ref={toggleRef}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
             aria-controls="mn-mobile-menu"

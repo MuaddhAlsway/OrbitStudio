@@ -37,6 +37,8 @@ export default function RelatedProjects({
 
   useGSAP(
     () => {
+      if (projects.length === 0) return
+
       const mm = gsap.matchMedia()
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {

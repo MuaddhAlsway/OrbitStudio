@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { useIntroReady } from '../motion'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { PROCESS_STAGES } from '../data/process'
 import ProcessTimeline from '../components/process/ProcessTimeline'
@@ -37,6 +38,7 @@ function ProcessArc() {
 
 export default function Process() {
   const root = useRef<HTMLElement | null>(null)
+  const introReady = useIntroReady()
 
   usePageMeta(
     'Our Process',
@@ -45,6 +47,7 @@ export default function Process() {
 
   useGSAP(
     () => {
+      if (!introReady) return
       const mm = gsap.matchMedia()
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -60,7 +63,7 @@ export default function Process() {
           .from('.prc-arc__index', { opacity: 0, duration: 0.6 }, 0.9)
       })
     },
-    { scope: root },
+    { scope: root, dependencies: [introReady], revertOnUpdate: true },
   )
 
   return (

@@ -34,7 +34,10 @@ export default function CaseText({ id, number, eyebrow, title, paragraphs, point
         tl.from('.cs-text__label', { y: 14, opacity: 0, duration: 0.55 })
           .from('.cs-text__title-line', { yPercent: 112, duration: 1, stagger: 0.12 }, 0.08)
           .from('.cs-text__para', { y: 20, opacity: 0, duration: 0.7, stagger: 0.1 }, 0.34)
-          .from('.cs-text__point', { y: 16, opacity: 0, duration: 0.6, stagger: 0.06 }, 0.5)
+
+        if (points && points.length > 0) {
+          tl.from('.cs-text__point', { y: 16, opacity: 0, duration: 0.6, stagger: 0.06 }, 0.5)
+        }
       })
     },
     { scope: root },

@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { SERVICES } from '../../data/services'
+import { useIntroReady } from '../../motion'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -63,9 +64,11 @@ function Lattice() {
 
 export default function ServicesHero() {
   const root = useRef<HTMLElement | null>(null)
+  const introReady = useIntroReady()
 
   useGSAP(
     () => {
+      if (!introReady) return
       const mm = gsap.matchMedia()
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -81,7 +84,7 @@ export default function ServicesHero() {
           .from('.svc-lattice__core', { scale: 0, opacity: 0, duration: 0.7, transformOrigin: 'center' }, 0.7)
       })
     },
-    { scope: root },
+    { scope: root, dependencies: [introReady], revertOnUpdate: true },
   )
 
   return (

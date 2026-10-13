@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -21,8 +22,10 @@ export const config = {
   rootDir,
   distDir: path.join(rootDir, 'dist'),
   dataDir: process.env.DATA_DIR
-    ? path.resolve(rootDir, process.env.DATA_DIR)
-    : path.join(rootDir, 'data'),
+    ? path.resolve(process.env.DATA_DIR)
+    : process.env.VERCEL
+      ? path.join(os.tmpdir(), 'manara-data')
+      : path.join(rootDir, 'data'),
   corsOrigin: toString(process.env.CORS_ORIGIN),
 
   rateLimit: {

@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
+import { IntroProvider } from '../../motion'
 import LoadingWordmark from './LoadingWordmark'
 import OctopusScene from './OctopusScene'
 import SkipIntroButton from './SkipIntroButton'
 import WaterBackground from './WaterBackground'
 import '../../css/CinematicLoader.css'
 
-gsap.registerPlugin(useGSAP)
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 const STORAGE_KEY = 'orbit-intro-played'
 const INTRO_TIMEOUT_MS = 7000
@@ -236,8 +238,21 @@ export default function CinematicLoader({ children }: Props) {
     if (location.key !== initialKeyRef.current) finish()
   }, [location, playing, finish])
 
+  /* Re-measure scroll-driven animations once the overlay has lifted. */
+  useEffect(() => {
+    if (playing) return undefined
+    let second = 0
+    const first = window.requestAnimationFrame(() => {
+      second = window.requestAnimationFrame(() => ScrollTrigger.refresh())
+    })
+    return () => {
+      window.cancelAnimationFrame(first)
+      window.cancelAnimationFrame(second)
+    }
+  }, [playing])
+
   return (
-    <>
+    <IntroProvider value={playing ? 'active' : 'ready'}>
       <div className="cl-app" inert={playing || undefined} aria-hidden={playing || undefined}>
         {children}
       </div>
@@ -304,6 +319,6 @@ export default function CinematicLoader({ children }: Props) {
           <SkipIntroButton ref={skipRef} onClick={skip} />
         </div>
       )}
-    </>
+    </IntroProvider>
   )
 }

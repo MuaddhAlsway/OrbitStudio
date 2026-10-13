@@ -56,17 +56,19 @@ export default function CapabilitiesIndex() {
           },
         })
 
-        gsap.from('.svc-cap__preview', {
-          opacity: 0,
-          y: 40,
-          duration: 0.9,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.svc-cap__list',
-            start: 'top 78%',
-            toggleActions: 'play none none reverse',
-          },
-        })
+        if (root.current?.querySelector('.svc-cap__preview')) {
+          gsap.from('.svc-cap__preview', {
+            opacity: 0,
+            y: 40,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: '.svc-cap__list',
+              start: 'top 78%',
+              toggleActions: 'play none none reverse',
+            },
+          })
+        }
       })
     },
     { scope: root },

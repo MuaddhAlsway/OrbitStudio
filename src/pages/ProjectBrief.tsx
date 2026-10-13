@@ -3,6 +3,7 @@ import type { FormEvent } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { useIntroReady } from '../motion'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { useBriefForm } from '../hooks/useBriefForm'
@@ -38,6 +39,7 @@ export default function ProjectBrief() {
   const headingRef = useRef<HTMLHeadingElement | null>(null)
   const firstRender = useRef(true)
   const reduced = useReducedMotion()
+  const introReady = useIntroReady()
   const [params] = useSearchParams()
 
   const slug = params.get('service')
@@ -70,7 +72,7 @@ export default function ProjectBrief() {
   /* Animate each step in ------------------------------------------ */
   useGSAP(
     () => {
-      if (reduced || status === 'success') return
+      if (reduced || status === 'success' || !introReady) return
       gsap.from('.pb-step__head, .pb-step__body', {
         y: 18,
         opacity: 0,
@@ -79,7 +81,7 @@ export default function ProjectBrief() {
         stagger: 0.06,
       })
     },
-    { dependencies: [step, status], scope: root },
+    { dependencies: [step, status, introReady], scope: root },
   )
 
   /* Move focus to the step heading for keyboard + SR users ------- */

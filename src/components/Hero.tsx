@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { hasPlayed, markPlayed, useIntroReady } from '../motion'
 import '../css/Hero.css'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
@@ -86,14 +87,21 @@ function Instrument() {
 
 export default function Hero() {
   const root = useRef<HTMLElement | null>(null)
+  const introReady = useIntroReady()
 
   useGSAP(
     () => {
+      /* Wait for the cinematic intro to lift so the hero entrance reads as
+         a continuation of the reveal instead of running behind the overlay. */
+      if (!introReady) return
+
       const mm = gsap.matchMedia()
 
-      /* ---- Entrance sequence (motion-safe only) ---------------- */
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        const intro = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      /* ---- Entrance sequence (motion-safe, first arrival only) - */
+      if (!hasPlayed('hero-entrance')) {
+        mm.add('(prefers-reduced-motion: no-preference)', () => {
+          markPlayed('hero-entrance')
+          const intro = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
         intro
           .from('.hero-grid', { opacity: 0, duration: 1.4, ease: 'power2.out' }, 0)
@@ -120,7 +128,8 @@ export default function Hero() {
           .from('.hero-core', { opacity: 0, duration: 0.7 }, 1.2)
           .from('.hero-visual__label', { opacity: 0, y: 10, duration: 0.6 }, 1.5)
           .from('.hero-scroll', { opacity: 0, y: 12, duration: 0.7 }, 1.58)
-      })
+        })
+      }
 
       /* ---- Desktop: pinned cinematic scroll ------------------- */
       mm.add('(min-width: 1025px) and (prefers-reduced-motion: no-preference)', () => {
@@ -166,7 +175,7 @@ export default function Hero() {
         document.fonts.ready.then(() => ScrollTrigger.refresh())
       }
     },
-    { scope: root },
+    { scope: root, dependencies: [introReady], revertOnUpdate: true },
   )
 
   return (
