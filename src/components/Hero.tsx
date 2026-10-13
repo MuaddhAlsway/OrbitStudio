@@ -127,7 +127,6 @@ export default function Hero() {
           .from('.hero-arc', { strokeDashoffset: 1, opacity: 0, duration: 1, ease: 'power2.out' }, 1.08)
           .from('.hero-core', { opacity: 0, duration: 0.7 }, 1.2)
           .from('.hero-visual__label', { opacity: 0, y: 10, duration: 0.6 }, 1.5)
-          .from('.hero-scroll', { opacity: 0, y: 12, duration: 0.7 }, 1.58)
         })
       }
 
@@ -151,7 +150,6 @@ export default function Hero() {
           .fromTo('.hero-lower', { y: 0, opacity: 1 }, { y: -96, opacity: 0 }, 0)
           .fromTo('.hero-visual', { rotate: 0, scale: 1, x: 0 }, { rotate: 40, scale: 1.07, x: -80 }, 0)
           .to('.hero-grid', { opacity: 0.35 }, 0)
-          .to('.hero-scroll', { opacity: 0 }, 0)
           /* cinematic exit */
           .to('.hero-headline__mask', { yPercent: -120 }, 0.62)
       })
@@ -232,11 +230,6 @@ export default function Hero() {
           </div>
           <span className="hero-visual__label">Riyadh — 24.71&deg;N / 46.67&deg;E</span>
         </div>
-      </div>
-
-      <div className="hero-scroll" aria-hidden="true">
-        <span className="hero-scroll__line" />
-        <span className="hero-scroll__text">Scroll to explore</span>
       </div>
     </section>
   )
