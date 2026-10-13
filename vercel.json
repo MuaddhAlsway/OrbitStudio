@@ -6,7 +6,6 @@
   "installCommand": "npm install",
   "functions": {
     "api/[...path].js": {
-      "memory": 1024,
       "maxDuration": 30,
       "includeFiles": "shared/**"
     }
