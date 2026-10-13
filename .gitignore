@@ -13,7 +13,7 @@ dist-ssr
 *.local
 
 # Local data + secrets
-data
+/data
 .env
 .env.*
 !.env.example
@@ -31,3 +31,6 @@ data
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
+.env*
