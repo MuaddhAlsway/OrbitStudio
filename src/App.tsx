@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import CinematicLoader from './components/cinematic/CinematicLoader'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import ScrollManager from './components/routing/ScrollManager'
 import { RouteTransition } from './motion'
 import Home from './pages/Home'
@@ -39,6 +40,7 @@ export default function App() {
             </Routes>
           </Suspense>
         </RouteTransition>
+        <Footer />
       </CinematicLoader>
     </BrowserRouter>
   )

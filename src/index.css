@@ -8,14 +8,33 @@
 
 html {
   background-color: #111c2a;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  /* Branded scrollbar — mint→teal thumb on a deep-ink track. */
+  scrollbar-width: thin;
+  scrollbar-color: #b7f1df #0c1622;
 }
 
 html::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
+  width: 12px;
+  height: 12px;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: #0c1622;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(180deg, #d9f7ee 0%, #b7f1df 45%, #77c9d4 100%);
+  background-clip: padding-box;
+  border: 3px solid #0c1622;
+  border-radius: 999px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background-image: linear-gradient(180deg, #eafcF6 0%, #c9f6e8 45%, #8fd7e0 100%);
+}
+
+html::-webkit-scrollbar-corner {
+  background-color: #0c1622;
 }
 
 html,
