@@ -1,0 +1,192 @@
+/* ==================================================================
+   MANARA — Contact section (homepage)
+   Scoped to `.ct-*`. Relies on platform tokens (--pf-*).
+   ================================================================== */
+
+.ct {
+  position: relative;
+  padding: clamp(6rem, 13vh, 11rem) 0;
+  overflow: hidden;
+  background-color: var(--pf-bg);
+  color: var(--pf-text);
+  border-top: 1px solid var(--pf-line);
+}
+
+.ct__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ct__grid {
+  position: absolute;
+  inset: -1px;
+  opacity: 0.45;
+  background-image:
+    linear-gradient(to right, var(--pf-faint) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--pf-faint) 1px, transparent 1px);
+  background-size: clamp(56px, 5.5vw, 88px) clamp(56px, 5.5vw, 88px);
+  -webkit-mask-image: radial-gradient(90% 100% at 20% 10%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(90% 95% at 20% 10%, #000 0%, transparent 72%);
+}
+
+.ct__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.ct-head__eyebrow {
+  margin: 0;
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--pf-muted);
+}
+
+.ct-headline {
+  margin: 1.3rem 0 0;
+  font-family: var(--pf-display);
+  font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+  font-weight: 500;
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+}
+
+.ct-headline__mask {
+  display: block;
+  overflow: hidden;
+}
+
+.ct-headline__line--serif {
+  font-family: var(--pf-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.ct-accent {
+  color: var(--pf-accent);
+}
+
+.ct-head__desc {
+  margin: 1.5rem 0 0;
+  max-width: 40ch;
+  font-family: var(--pf-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--pf-muted);
+}
+
+.ct-body {
+  align-self: end;
+}
+
+.ct-details {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--pf-line);
+}
+
+.ct-detail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--pf-line);
+}
+
+.ct-detail__label {
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pf-dim);
+}
+
+.ct-detail__value {
+  font-family: var(--pf-display);
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  font-weight: 500;
+}
+
+.ct-detail__value--link {
+  color: var(--pf-text);
+  text-decoration: none;
+  transition: color 0.4s var(--pf-ease);
+}
+
+.ct-detail__value--link:hover {
+  color: var(--pf-accent);
+}
+
+.ct-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2.2rem;
+}
+
+.ct-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.95rem 1.65rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--pf-display);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.45s var(--pf-ease),
+    background-color 0.45s var(--pf-ease),
+    color 0.45s var(--pf-ease);
+}
+
+.ct-btn--primary {
+  background-color: var(--pf-accent);
+  color: #0b1620;
+}
+
+.ct-btn--ghost {
+  border-color: var(--pf-line-strong);
+  color: var(--pf-text);
+}
+
+.ct-btn svg {
+  transition: transform 0.45s var(--pf-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ct-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .ct-btn--ghost:hover {
+    border-color: var(--pf-accent);
+    color: var(--pf-accent);
+  }
+
+  .ct-btn:hover svg {
+    transform: translate(2px, -2px);
+  }
+}
+
+@media (max-width: 900px) {
+  .ct__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ct-body {
+    align-self: start;
+  }
+}

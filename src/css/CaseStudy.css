@@ -1,0 +1,628 @@
+/* ==================================================================
+   MANARA — Project case studies
+   Scoped to `.cs-*`. Shared tokens & primitives live in platform.css.
+   ================================================================== */
+
+.cs-page {
+  position: relative;
+  background-color: var(--pf-bg);
+  color: var(--pf-text);
+  overflow: hidden;
+}
+
+.cs-page :focus-visible {
+  outline: 2px solid var(--pf-accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ==================================================================
+   Hero
+   ================================================================== */
+.cs-hero {
+  position: relative;
+  padding: clamp(7rem, 16vh, 11rem) 0 clamp(4rem, 9vh, 7rem);
+}
+
+.cs-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cs-hero__grid {
+  position: absolute;
+  inset: -1px;
+  opacity: 0.42;
+  background-image:
+    linear-gradient(to right, var(--pf-faint) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--pf-faint) 1px, transparent 1px);
+  background-size: clamp(56px, 5.5vw, 88px) clamp(56px, 5.5vw, 88px);
+  -webkit-mask-image: radial-gradient(120% 90% at 78% 12%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(120% 90% at 78% 12%, #000 0%, transparent 70%);
+}
+
+.cs-hero__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(55% 50% at 80% 16%, rgba(119, 201, 212, 0.12), transparent 62%);
+}
+
+.cs-hero__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.cs-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cs-crumbs__link {
+  color: var(--pf-muted);
+  text-decoration: none;
+  transition: color 0.35s var(--pf-ease);
+}
+
+.cs-crumbs__sep {
+  color: var(--pf-faint);
+}
+
+.cs-crumbs__current {
+  color: var(--pf-dim);
+}
+
+.cs-hero__eyebrow {
+  margin: 1.75rem 0 0;
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--pf-muted);
+}
+
+.cs-hero__title {
+  margin: 1.25rem 0 0;
+  font-family: var(--pf-display);
+  font-size: clamp(2.8rem, 8vw, 6.5rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.cs-hero__title-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.cs-hero__title-line {
+  display: block;
+}
+
+.cs-hero__lead {
+  margin: 1.5rem 0 0;
+  max-width: 48ch;
+  color: var(--pf-muted);
+  font-family: var(--pf-body);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.6;
+}
+
+.cs-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  margin: clamp(2.25rem, 5vw, 3.25rem) 0 0;
+  padding-top: clamp(1.25rem, 3vw, 1.75rem);
+  border-top: 1px solid var(--pf-line);
+}
+
+.cs-hero__meta-item dt {
+  margin: 0 0 0.4rem;
+  font-family: var(--pf-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pf-dim);
+}
+
+.cs-hero__meta-item dd {
+  margin: 0;
+  color: var(--pf-text);
+  font-size: 0.95rem;
+}
+
+.cs-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin: 2.25rem 0 0;
+}
+
+.cs-hero__media-wrap {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(2.75rem, 6vw, 4.5rem);
+}
+
+.cs-hero__media {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--pf-line);
+  border-radius: 14px;
+  background-color: var(--pf-surface);
+}
+
+.cs-hero__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ==================================================================
+   Shared section head
+   ================================================================== */
+.cs-sec {
+  position: relative;
+  padding: clamp(4.5rem, 10vh, 7.5rem) 0;
+  border-top: 1px solid var(--pf-line);
+}
+
+.cs-sec__head {
+  max-width: 720px;
+}
+
+.cs-sec__label,
+.cs-text__label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--pf-muted);
+}
+
+.cs-sec__num,
+.cs-text__num {
+  color: var(--pf-accent);
+}
+
+.cs-sec__title,
+.cs-text__title {
+  margin: 1.15rem 0 0;
+  font-family: var(--pf-display);
+  font-size: clamp(1.8rem, 3.6vw, 3rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.cs-sec__title-mask,
+.cs-text__title-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.cs-sec__title-line,
+.cs-text__title-line {
+  display: block;
+}
+
+/* ==================================================================
+   Overview / Challenge / Solution
+   ================================================================== */
+.cs-text__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.cs-text__aside {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+
+.cs-text__body {
+  max-width: 62ch;
+}
+
+.cs-text__para {
+  margin: 0 0 1.15rem;
+  color: var(--pf-muted);
+  font-family: var(--pf-body);
+  font-size: 1.08rem;
+  line-height: 1.78;
+}
+
+.cs-text__para:last-child {
+  margin-bottom: 0;
+}
+
+.cs-text__points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-text__point {
+  position: relative;
+  padding-left: 1.2rem;
+  color: var(--pf-text);
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.cs-text__point::before {
+  content: '';
+  position: absolute;
+  top: 0.6em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--pf-accent);
+}
+
+/* ==================================================================
+   Key features
+   ================================================================== */
+.cs-features__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: clamp(0.85rem, 1.6vw, 1.25rem);
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: clamp(1.35rem, 2.5vw, 1.9rem);
+  background-color: var(--pf-surface);
+  border: 1px solid var(--pf-line);
+  border-radius: 12px;
+  transition:
+    border-color 0.5s var(--pf-ease),
+    transform 0.5s var(--pf-ease);
+}
+
+.cs-feature__index {
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--pf-accent);
+}
+
+.cs-feature__title {
+  font-family: var(--pf-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--pf-text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cs-feature:hover {
+    border-color: var(--pf-line-strong);
+    transform: translateY(-3px);
+  }
+}
+
+/* ==================================================================
+   Engineering architecture
+   ================================================================== */
+.cs-arch__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-arch__layer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.cs-arch__node {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.35rem 1.25rem;
+  align-items: start;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  background-color: var(--pf-surface);
+  border: 1px solid var(--pf-line);
+  border-radius: 12px;
+}
+
+.cs-arch__index {
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--pf-accent);
+}
+
+.cs-arch__label {
+  font-family: var(--pf-display);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  font-weight: 500;
+  color: var(--pf-text);
+}
+
+.cs-arch__items {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-arch__item {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--pf-line-strong);
+  border-radius: 999px;
+  font-family: var(--pf-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--pf-muted);
+}
+
+.cs-arch__connector {
+  position: relative;
+  align-self: flex-start;
+  width: 1px;
+  height: clamp(1.75rem, 4vw, 2.75rem);
+  margin-left: clamp(1.25rem, 3vw, 2rem);
+  background-color: var(--pf-line-strong);
+}
+
+.cs-arch__connector-arrow {
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid var(--pf-line-strong);
+  border-bottom: 1px solid var(--pf-line-strong);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.cs-arch__note {
+  margin: 1.75rem 0 0;
+  max-width: 60ch;
+  color: var(--pf-muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+/* ==================================================================
+   Gallery
+   ================================================================== */
+.cs-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+}
+
+.cs-gallery__tile {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--pf-line);
+  border-radius: 14px;
+  background-color: var(--pf-surface);
+}
+
+.cs-gallery__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ==================================================================
+   Project CTA
+   ================================================================== */
+.cs-cta {
+  position: relative;
+  padding: clamp(5rem, 11vh, 8.5rem) 0;
+  border-top: 1px solid var(--pf-line);
+  text-align: center;
+  overflow: hidden;
+}
+
+.cs-cta__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cs-cta__grid {
+  position: absolute;
+  inset: -1px;
+  opacity: 0.4;
+  background-image:
+    linear-gradient(to right, var(--pf-faint) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--pf-faint) 1px, transparent 1px);
+  background-size: clamp(56px, 5.5vw, 88px) clamp(56px, 5.5vw, 88px);
+  -webkit-mask-image: radial-gradient(80% 120% at 50% 50%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(80% 120% at 50% 50%, #000 0%, transparent 72%);
+}
+
+.cs-cta__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.cs-cta__eyebrow {
+  margin: 0;
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--pf-muted);
+}
+
+.cs-cta__title {
+  margin: 1.1rem auto 0;
+  max-width: 22ch;
+  font-family: var(--pf-display);
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.cs-cta__title-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.cs-cta__title-line {
+  display: block;
+}
+
+.cs-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: center;
+  margin: clamp(2rem, 4vw, 2.75rem) 0 0;
+}
+
+/* ==================================================================
+   Engineering scope
+   ================================================================== */
+.cs-scope__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: clamp(0.85rem, 2vw, 1.25rem);
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+}
+
+.cs-scope__item {
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  background-color: var(--pf-surface);
+  border: 1px solid var(--pf-line);
+  border-radius: 12px;
+}
+
+.cs-scope__value {
+  margin: 0;
+  font-family: var(--pf-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--pf-text);
+}
+
+.cs-scope__label {
+  margin: 0.65rem 0 0;
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pf-muted);
+}
+
+.cs-scope__note {
+  margin: 1.5rem 0 0;
+  color: var(--pf-dim);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ==================================================================
+   Architecture — supporting / integration / deployment groups
+   ================================================================== */
+.cs-arch__groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin: clamp(1.75rem, 4vw, 2.75rem) 0 0;
+  padding-top: clamp(1.75rem, 4vw, 2.5rem);
+  border-top: 1px solid var(--pf-line);
+}
+
+.cs-arch__group-label {
+  margin: 0 0 0.9rem;
+  font-family: var(--pf-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pf-dim);
+}
+
+.cs-arch__group .cs-arch__items {
+  grid-column: auto;
+  margin: 0;
+}
+
+/* ==================================================================
+   Hero meta link
+   ================================================================== */
+.cs-hero__meta-link {
+  color: var(--pf-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s var(--pf-ease);
+}
+
+.cs-hero__meta-link:hover,
+.cs-hero__meta-link:focus-visible {
+  border-color: var(--pf-accent);
+}
+
+/* ==================================================================
+   Responsive
+   ================================================================== */
+@media (max-width: 900px) {
+  .cs-text__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .cs-text__aside {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .cs-hero {
+    padding: 6.5rem 0 3.5rem;
+  }
+
+  .cs-hero__meta {
+    gap: 1.25rem 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-page * {
+    scroll-behavior: auto !important;
+  }
+}

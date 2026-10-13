@@ -1,0 +1,280 @@
+/* ==================================================================
+   MANARA — Platform tokens & shared primitives
+   Loaded globally (from App) so every services route — including the
+   404 fallback — has a consistent foundation. Scoped prefixes:
+   .svc-*  services overview
+   .sdp-*  service detail
+   .ct-*   contact section
+   .nf-*   404
+   ================================================================== */
+
+:root {
+  --pf-bg: #111c2a;
+  --pf-surface: #172638;
+  --pf-elevated: #203247;
+  --pf-text: #f5f7fa;
+  --pf-muted: #9baaba;
+  --pf-dim: rgba(245, 247, 250, 0.42);
+  --pf-faint: rgba(245, 247, 250, 0.14);
+  --pf-line: rgba(255, 255, 255, 0.1);
+  --pf-line-strong: rgba(255, 255, 255, 0.22);
+  --pf-accent: #b7f1df;
+  --pf-accent-2: #77c9d4;
+
+  --pf-display: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif;
+  --pf-serif: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --pf-body: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  --pf-mono: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  --pf-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --pf-container: 1440px;
+}
+
+.svc-page,
+.sdp-page,
+.about-page,
+.proc-page,
+.nf {
+  background-color: var(--pf-bg);
+  color: var(--pf-text);
+}
+
+.svc-container,
+.sdp-container,
+.ct-container {
+  width: 100%;
+  max-width: var(--pf-container);
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 4rem);
+}
+
+.svc-page :focus-visible,
+.sdp-page :focus-visible,
+.about-page :focus-visible,
+.proc-page :focus-visible,
+.nf :focus-visible,
+.ct :focus-visible {
+  outline: 2px solid var(--pf-accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.svc-accent-dot {
+  color: var(--pf-accent);
+}
+
+/* --- Shared service illustrations --------------------------------- */
+.svc-vis {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.svc-vis__stroke {
+  fill: none;
+  stroke: var(--pf-line-strong);
+  stroke-width: 1;
+}
+
+.svc-vis__dim {
+  fill: none;
+  stroke: var(--pf-line);
+  stroke-width: 1;
+}
+
+.svc-vis__accent {
+  fill: none;
+  stroke: var(--pf-accent);
+  stroke-width: 1.4;
+}
+
+.svc-vis__accent-fill {
+  fill: var(--pf-accent);
+  stroke: none;
+}
+
+.svc-vis__fill {
+  fill: var(--pf-surface);
+}
+
+.svc-vis__dot {
+  fill: var(--pf-line-strong);
+}
+
+.svc-vis__dot--accent {
+  fill: var(--pf-accent);
+}
+
+/* --- Buttons ------------------------------------------------------- */
+.svc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.95rem 1.65rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--pf-display);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.45s var(--pf-ease),
+    background-color 0.45s var(--pf-ease),
+    border-color 0.45s var(--pf-ease),
+    color 0.45s var(--pf-ease);
+}
+
+.svc-btn svg {
+  transition: transform 0.45s var(--pf-ease);
+}
+
+.svc-btn--primary {
+  background-color: var(--pf-accent);
+  color: #0b1620;
+}
+
+.svc-btn--ghost {
+  border-color: var(--pf-line-strong);
+  color: var(--pf-text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .svc-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .svc-btn--ghost:hover {
+    border-color: var(--pf-accent);
+    color: var(--pf-accent);
+  }
+
+  .svc-btn:hover svg {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* --- Eyebrow ------------------------------------------------------- */
+.svc-eyebrow,
+.svc-cap__eyebrow,
+.svc-diagram__eyebrow,
+.svc-approach__eyebrow,
+.svc-cta__eyebrow,
+.svc-work__eyebrow,
+.sdp-eyebrow,
+.sdp-sec__eyebrow {
+  margin: 0;
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--pf-muted);
+}
+
+/* --- Masked headline helper --------------------------------------- */
+.svc-hero__title-mask,
+.svc-cap__title-mask,
+.svc-diagram__title-mask,
+.svc-approach__title-mask,
+.svc-cta__title-mask,
+.svc-work__title-mask,
+.sdp-hero__title-mask,
+.sdp-sec__title-mask {
+  display: block;
+  overflow: hidden;
+}
+
+/* --- 404 ----------------------------------------------------------- */
+.nf {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  text-align: center;
+}
+
+.nf__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.nf__grid {
+  position: absolute;
+  inset: -1px;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(to right, var(--pf-faint) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--pf-faint) 1px, transparent 1px);
+  background-size: clamp(56px, 5.5vw, 88px) clamp(56px, 5.5vw, 88px);
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 45%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(70% 70% at 50% 45%, #000 0%, transparent 75%);
+}
+
+.nf__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  padding: 0 clamp(1.25rem, 5vw, 4rem);
+}
+
+.nf__eyebrow {
+  margin: 0 0 1.5rem;
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--pf-muted);
+}
+
+.nf__title {
+  margin: 0 0 1.25rem;
+  font-family: var(--pf-display);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.nf__title-strong {
+  font-family: var(--pf-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--pf-accent);
+}
+
+.nf__text {
+  margin: 0 auto 2.25rem;
+  max-width: 44ch;
+  color: var(--pf-muted);
+  font-family: var(--pf-body);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.nf__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: center;
+}
+
+/* --- Motion safety ------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .svc-page *,
+  .sdp-page *,
+  .about-page *,
+  .proc-page *,
+  .nf *,
+  .ct * {
+    scroll-behavior: auto !important;
+  }
+}

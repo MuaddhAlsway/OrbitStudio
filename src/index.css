@@ -1,0 +1,26 @@
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #111c2a;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+  color: #f3f7fb;
+  background-color: #111c2a;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}

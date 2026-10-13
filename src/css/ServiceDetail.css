@@ -1,0 +1,412 @@
+/* ==================================================================
+   MANARA — Service detail template (Section 05)
+   Scoped to `.sdp-*`. Shared tokens live in platform.css; the reused
+   `.svc-work` / `.svc-cta` blocks live in Services.css.
+   ================================================================== */
+
+/* ==================================================================
+   Section 01 — Service hero
+   ================================================================== */
+.sdp-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 88vh;
+  padding: clamp(7rem, 16vh, 11rem) 0 clamp(4.5rem, 9vh, 7.5rem);
+  overflow: hidden;
+}
+
+.sdp-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.sdp-hero__grid {
+  position: absolute;
+  inset: -1px;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(to right, var(--pf-faint) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--pf-faint) 1px, transparent 1px);
+  background-size: clamp(56px, 5.5vw, 88px) clamp(56px, 5.5vw, 88px);
+  -webkit-mask-image: radial-gradient(115% 95% at 74% 24%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(115% 95% at 74% 24%, #000 0%, transparent 72%);
+}
+
+.sdp-hero__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(55% 50% at 80% 30%, rgba(119, 201, 212, 0.12), transparent 62%);
+}
+
+.sdp-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.sdp-hero__copy {
+  max-width: 620px;
+}
+
+.sdp-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.sdp-eyebrow__index {
+  font-family: var(--pf-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  color: var(--pf-accent);
+}
+
+.sdp-hero__title {
+  margin: 1.5rem 0 0;
+  font-family: var(--pf-display);
+  font-size: clamp(2.5rem, 5.6vw, 4.6rem);
+  font-weight: 500;
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+}
+
+.sdp-hero__lead {
+  margin: 1.6rem 0 0;
+  max-width: 34rem;
+  font-family: var(--pf-body);
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.7;
+  color: var(--pf-muted);
+}
+
+.sdp-hero__note {
+  margin: 1.5rem 0 0;
+  max-width: 36rem;
+  padding: 0.9rem 1.1rem;
+  border-left: 2px solid var(--pf-accent);
+  background-color: rgba(183, 241, 223, 0.06);
+  font-family: var(--pf-body);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--pf-muted);
+}
+
+.sdp-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2.3rem;
+}
+
+.sdp-hero__visual {
+  display: flex;
+  justify-content: center;
+}
+
+.sdp-hero__visual-inner {
+  width: min(100%, 440px);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background-color: var(--pf-surface);
+  border: 1px solid var(--pf-line);
+  border-radius: 12px;
+}
+
+/* ==================================================================
+   Shared section shell
+   ================================================================== */
+.sdp-sec {
+  padding: clamp(5.5rem, 12vh, 10rem) 0;
+  border-top: 1px solid var(--pf-line);
+}
+
+.sdp-sec__head {
+  max-width: 760px;
+  margin-bottom: clamp(2.25rem, 4.5vw, 3.5rem);
+}
+
+.sdp-sec__title {
+  margin: 1.1rem 0 0;
+  font-family: var(--pf-display);
+  font-size: clamp(1.9rem, 4vw, 3.1rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+
+.sdp-sec__lead {
+  margin: 1.2rem 0 0;
+  max-width: 54ch;
+  font-family: var(--pf-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--pf-muted);
+}
+
+/* ==================================================================
+   Section 02 — What we build
+   ================================================================== */
+.sdp-caps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  background-color: var(--pf-line);
+  border: 1px solid var(--pf-line);
+  border-radius: 12px;
+}
+
+.sdp-cap {
+  padding: clamp(1.6rem, 3vw, 2.5rem);
+  background-color: var(--pf-bg);
+  transition: background-color 0.4s var(--pf-ease);
+}
+
+.sdp-cap__index {
+  font-family: var(--pf-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--pf-dim);
+}
+
+.sdp-cap__title {
+  margin: 0.9rem 0 0;
+  font-family: var(--pf-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.sdp-cap__text {
+  margin: 0.6rem 0 0;
+  font-family: var(--pf-body);
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: var(--pf-muted);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sdp-cap:hover {
+    background-color: var(--pf-surface);
+  }
+}
+
+/* ==================================================================
+   Section 03 — How we engineer it
+   ================================================================== */
+.sdp-process {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--pf-line);
+}
+
+.sdp-step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--pf-line);
+}
+
+.sdp-step__index {
+  font-family: var(--pf-mono);
+  font-size: 0.85rem;
+  color: var(--pf-accent);
+}
+
+.sdp-step__title {
+  margin: 0;
+  font-family: var(--pf-display);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.sdp-step__text {
+  margin: 0.5rem 0 0;
+  max-width: 54rem;
+  font-family: var(--pf-body);
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: var(--pf-muted);
+}
+
+/* ==================================================================
+   Section 04 — System visualisation
+   ================================================================== */
+.sdp-arch {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sdp-arch__step {
+  display: flex;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.sdp-arch__node {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  background-color: var(--pf-surface);
+  border: 1px solid var(--pf-line);
+  border-radius: 10px;
+  transition:
+    border-color 0.4s var(--pf-ease),
+    transform 0.4s var(--pf-ease),
+    background-color 0.4s var(--pf-ease);
+}
+
+.sdp-arch__node:hover,
+.sdp-arch__node:focus-visible {
+  border-color: var(--pf-accent);
+  background-color: var(--pf-elevated);
+  transform: translateY(-4px);
+}
+
+.sdp-arch__index {
+  display: block;
+  font-family: var(--pf-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--pf-dim);
+}
+
+.sdp-arch__label {
+  display: block;
+  margin-top: 0.55rem;
+  font-family: var(--pf-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.sdp-arch__note {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: var(--pf-body);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--pf-muted);
+}
+
+.sdp-arch__connector {
+  position: relative;
+  flex: 0 0 clamp(16px, 3vw, 44px);
+  height: 1px;
+  align-self: center;
+  background-color: var(--pf-line);
+}
+
+.sdp-arch__signal {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  border-radius: 50%;
+  background-color: var(--pf-accent);
+  animation: sdp-travel 3s var(--pf-ease) infinite;
+}
+
+@keyframes sdp-travel {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* ==================================================================
+   Responsive
+   ================================================================== */
+@media (max-width: 1024px) {
+  .sdp-hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sdp-hero__visual {
+    order: -1;
+  }
+
+  .sdp-hero__visual-inner {
+    width: min(100%, 360px);
+  }
+}
+
+@media (max-width: 900px) {
+  .sdp-caps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sdp-arch {
+    flex-direction: column;
+  }
+
+  .sdp-arch__step {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sdp-arch__connector {
+    flex: 0 0 auto;
+    width: 1px;
+    height: clamp(20px, 5vw, 36px);
+    margin: 0 auto;
+  }
+
+  .sdp-arch__signal {
+    top: 0;
+    left: 50%;
+    margin-left: -2.5px;
+    margin-top: 0;
+    animation: sdp-travel-y 3s var(--pf-ease) infinite;
+  }
+}
+
+@keyframes sdp-travel-y {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sdp-arch__signal {
+    animation: none;
+  }
+}

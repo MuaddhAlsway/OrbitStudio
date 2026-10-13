@@ -1,0 +1,563 @@
+/* ==================================================================
+   MANARA — Process page
+   Scoped to `.prc-*`. Shared tokens & primitives live in platform.css.
+   ================================================================== */
+
+.proc-page {
+  position: relative;
+}
+
+/* --- Ambient background ------------------------------------------- */
+.prc__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.prc__grid {
+  position: absolute;
+  inset: -1px;
+  opacity: 0.42;
+  background-image:
+    linear-gradient(to right, var(--pf-faint) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--pf-faint) 1px, transparent 1px);
+  background-size: clamp(56px, 5.5vw, 88px) clamp(56px, 5.5vw, 88px);
+  -webkit-mask-image: radial-gradient(120% 80% at 74% 16%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(120% 80% at 74% 16%, #000 0%, transparent 72%);
+}
+
+.prc__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(55% 48% at 80% 22%, rgba(119, 201, 212, 0.12), transparent 62%);
+}
+
+.proc-page > section,
+#process-timeline {
+  position: relative;
+  z-index: 1;
+}
+
+#process-timeline {
+  scroll-margin-top: 80px;
+}
+
+/* ==================================================================
+   Hero
+   ================================================================== */
+.prc-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: clamp(7rem, 16vh, 11rem) 0 clamp(5rem, 10vh, 8rem);
+}
+
+.prc-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.prc-hero__copy {
+  max-width: 620px;
+}
+
+.prc-hero__title {
+  margin: 1.5rem 0 0;
+  font-family: var(--pf-display);
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+
+.prc-hero__title-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.prc-hero__title-line {
+  display: block;
+}
+
+.prc-hero__title-line--serif {
+  font-family: var(--pf-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.prc-hero__lead {
+  margin: 1.75rem 0 0;
+  max-width: 50ch;
+  color: var(--pf-muted);
+  font-family: var(--pf-body);
+  font-size: 1.05rem;
+  line-height: 1.72;
+}
+
+.prc-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin: 2.25rem 0 0;
+}
+
+.prc-hero__visual {
+  display: flex;
+  justify-content: center;
+}
+
+.prc-hero__visual svg {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+}
+
+/* --- Hero arc ----------------------------------------------------- */
+.prc-arc__line {
+  stroke: var(--pf-line);
+  stroke-width: 1;
+}
+
+.prc-arc__progress {
+  stroke: var(--pf-accent);
+  stroke-width: 1.4;
+}
+
+.prc-arc__stem {
+  stroke: var(--pf-line);
+  stroke-width: 1;
+}
+
+.prc-arc__node {
+  fill: var(--pf-bg);
+  stroke: var(--pf-line-strong);
+  stroke-width: 1;
+}
+
+.prc-arc__node--active {
+  fill: var(--pf-bg);
+  stroke: var(--pf-accent);
+  stroke-width: 1.4;
+}
+
+.prc-arc__index {
+  fill: var(--pf-muted);
+  font-family: var(--pf-mono);
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+/* ==================================================================
+   Timeline
+   ================================================================== */
+.prc-tl {
+  padding: clamp(5rem, 11vh, 8.5rem) 0 clamp(4rem, 9vh, 7rem);
+  border-top: 1px solid var(--pf-line);
+}
+
+.prc-tl__head {
+  max-width: 660px;
+}
+
+.prc-tl__title {
+  margin: 1rem 0 0;
+  font-family: var(--pf-display);
+  font-size: clamp(1.9rem, 3.8vw, 3.1rem);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+}
+
+.prc-tl__title-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.prc-tl__title-line {
+  display: block;
+}
+
+.prc-tl__title-line--serif {
+  font-family: var(--pf-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.prc-tl__desc {
+  margin: 1.4rem 0 0;
+  max-width: 56ch;
+  color: var(--pf-muted);
+  font-family: var(--pf-body);
+  font-size: 1.02rem;
+  line-height: 1.72;
+}
+
+/* --- Stage navigator --------------------------------------------- */
+.prc-tl__nav {
+  position: sticky;
+  top: 68px;
+  z-index: 5;
+  display: flex;
+  gap: 0.5rem;
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  padding: 0.75rem 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background-color: rgba(17, 28, 42, 0.9);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--pf-line);
+}
+
+.prc-tl__nav::-webkit-scrollbar {
+  display: none;
+}
+
+.prc-tl__tab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--pf-line);
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--pf-muted);
+  font-family: var(--pf-body);
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 0.4s var(--pf-ease),
+    border-color 0.4s var(--pf-ease),
+    background-color 0.4s var(--pf-ease);
+}
+
+.prc-tl__tab-index {
+  font-family: var(--pf-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--pf-dim);
+  transition: color 0.4s var(--pf-ease);
+}
+
+.prc-tl__tab.is-active {
+  color: #0b1620;
+  background-color: var(--pf-accent);
+  border-color: var(--pf-accent);
+}
+
+.prc-tl__tab.is-active .prc-tl__tab-index {
+  color: rgba(11, 22, 32, 0.6);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .prc-tl__tab:hover {
+    border-color: var(--pf-line-strong);
+    color: var(--pf-text);
+  }
+
+  .prc-tl__tab.is-active:hover {
+    color: #0b1620;
+  }
+}
+
+/* --- Stages ------------------------------------------------------- */
+.prc-tl__track {
+  position: relative;
+  margin: clamp(3rem, 6vw, 4.5rem) 0 0;
+}
+
+.prc-tl__spine {
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0;
+  left: 22px;
+  width: 1px;
+  background-color: var(--pf-line);
+}
+
+.prc-tl__spine-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(var(--pf-accent), var(--pf-accent-2));
+  transform-origin: top center;
+}
+
+.prc-tl__stages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prc-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  column-gap: clamp(1.5rem, 3.5vw, 2.75rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  scroll-margin-top: 130px;
+}
+
+.prc-stage:last-child {
+  padding-bottom: 0;
+}
+
+.prc-stage__marker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: 0.25rem;
+}
+
+.prc-stage__marker-index {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--pf-line-strong);
+  border-radius: 50%;
+  background-color: var(--pf-bg);
+  color: var(--pf-muted);
+  font-family: var(--pf-mono);
+  font-size: 0.8rem;
+  transition:
+    color 0.5s var(--pf-ease),
+    border-color 0.5s var(--pf-ease),
+    background-color 0.5s var(--pf-ease);
+}
+
+.prc-stage.is-active .prc-stage__marker-index {
+  color: #0b1620;
+  background-color: var(--pf-accent);
+  border-color: var(--pf-accent);
+}
+
+.prc-stage__dot {
+  display: none;
+}
+
+.prc-stage__connector {
+  position: absolute;
+  top: 23px;
+  left: 46px;
+  width: clamp(1rem, 3vw, 2rem);
+  height: 1px;
+  background-color: var(--pf-line-strong);
+}
+
+.prc-stage__card {
+  padding: clamp(1.5rem, 3.5vw, 2.75rem);
+  background-color: var(--pf-surface);
+  border: 1px solid var(--pf-line);
+  border-radius: 14px;
+  transition: border-color 0.5s var(--pf-ease);
+}
+
+.prc-stage.is-active .prc-stage__card {
+  border-color: var(--pf-line-strong);
+}
+
+.prc-stage__head {
+  max-width: 62ch;
+}
+
+.prc-stage__index {
+  font-family: var(--pf-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--pf-accent);
+}
+
+.prc-stage__title {
+  margin: 0.8rem 0 0;
+  font-family: var(--pf-display);
+  font-size: clamp(1.4rem, 2.7vw, 2.05rem);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+.prc-stage__summary {
+  margin: 1rem 0 0;
+  color: var(--pf-muted);
+  font-family: var(--pf-body);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.prc-stage__visual {
+  margin: clamp(1.75rem, 3.5vw, 2.5rem) 0;
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+  background-color: var(--pf-bg);
+  border: 1px solid var(--pf-line);
+  border-radius: 10px;
+}
+
+.prc-stage__visual svg {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.prc-stage__cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.prc-stage__label {
+  margin: 0 0 1rem;
+  font-family: var(--pf-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pf-dim);
+}
+
+.prc-stage__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prc-stage__list li {
+  position: relative;
+  padding-left: 1.2rem;
+  color: var(--pf-muted);
+  font-family: var(--pf-body);
+  font-size: 0.92rem;
+  line-height: 1.58;
+}
+
+.prc-stage__list li::before {
+  content: '';
+  position: absolute;
+  top: 0.58em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--pf-line-strong);
+}
+
+.prc-stage__list--deliverables li::before {
+  background-color: var(--pf-accent);
+}
+
+/* --- Stage diagrams ---------------------------------------------- */
+.prc-dg__stroke {
+  fill: none;
+  stroke: var(--pf-line-strong);
+  stroke-width: 1;
+}
+
+.prc-dg__dim {
+  fill: none;
+  stroke: var(--pf-line);
+  stroke-width: 1;
+}
+
+.prc-dg__accent {
+  fill: none;
+  stroke: var(--pf-accent);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.prc-dg__accent-fill {
+  fill: var(--pf-accent);
+  stroke: none;
+}
+
+.prc-dg__node {
+  fill: var(--pf-line-strong);
+}
+
+.prc-dg__dot {
+  fill: var(--pf-line-strong);
+}
+
+.prc-dg__dot--accent {
+  fill: var(--pf-accent);
+}
+
+/* ==================================================================
+   Responsive
+   ================================================================== */
+@media (max-width: 1024px) {
+  .prc-hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 3.5rem);
+  }
+
+  .prc-hero__copy {
+    max-width: 720px;
+  }
+
+  .prc-hero__visual {
+    order: 2;
+  }
+
+  .prc-hero__visual svg {
+    max-width: 480px;
+  }
+}
+
+@media (max-width: 760px) {
+  .prc-stage__cols {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .prc-hero {
+    min-height: auto;
+    padding: 6.5rem 0 4rem;
+  }
+
+  .prc-tl__nav {
+    top: 60px;
+  }
+
+  .prc-stage {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: clamp(0.85rem, 3vw, 1.25rem);
+    scroll-margin-top: 120px;
+  }
+
+  .prc-tl__spine {
+    left: 16px;
+  }
+
+  .prc-stage__marker-index {
+    width: 34px;
+    height: 34px;
+    font-size: 0.72rem;
+  }
+
+  .prc-stage__connector {
+    top: 17px;
+    left: 34px;
+  }
+}

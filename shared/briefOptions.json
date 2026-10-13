@@ -1,0 +1,60 @@
+{
+  "$comment": "Single source of truth for the project brief. Edit the option lists below to change what clients can choose. These ranges are placeholders for configuration, not fixed prices. The server reads this file for validation, so client and server always agree.",
+  "services": [
+    {
+      "id": "website-design-development",
+      "label": "Website Design & Development",
+      "description": "Brand-led, responsive websites designed and built to load fast and read clearly."
+    },
+    {
+      "id": "ecommerce-development",
+      "label": "E-Commerce Development",
+      "description": "Storefronts, catalogues and checkout flows that connect to dependable operations."
+    },
+    {
+      "id": "custom-web-applications",
+      "label": "Custom Web Applications",
+      "description": "Purpose-built applications and dashboards shaped around your operations."
+    },
+    {
+      "id": "backend-api-development",
+      "label": "Backend & API Development",
+      "description": "Server-side systems, data models and APIs built for integration and maintainability."
+    },
+    {
+      "id": "cloud-deployment-maintenance",
+      "label": "Cloud Deployment & Maintenance",
+      "description": "Hosting, deployment and ongoing maintenance that keep applications live and healthy."
+    },
+    {
+      "id": "ui-ux-interactive-experiences",
+      "label": "UI/UX & Interactive Experiences",
+      "description": "Interface design and motion that make products clear, considered and engaging."
+    }
+  ],
+  "budgets": [
+    { "id": "not-sure", "label": "Not sure yet — advise me" },
+    { "id": "up-to-15k", "label": "Up to SAR 15,000" },
+    { "id": "15k-40k", "label": "SAR 15,000 – 40,000" },
+    { "id": "40k-80k", "label": "SAR 40,000 – 80,000" },
+    { "id": "above-80k", "label": "Above SAR 80,000" }
+  ],
+  "timelines": [
+    { "id": "asap", "label": "As soon as possible" },
+    { "id": "within-1-month", "label": "Within 1 month" },
+    { "id": "1-3-months", "label": "1 – 3 months" },
+    { "id": "3-6-months", "label": "3 – 6 months" },
+    { "id": "flexible", "label": "Flexible / ongoing" }
+  ],
+  "urgency": [
+    { "id": "exploring", "label": "Just exploring" },
+    { "id": "normal", "label": "Normal priority" },
+    { "id": "high", "label": "High priority" },
+    { "id": "urgent", "label": "Urgent" }
+  ],
+  "communication": [
+    { "id": "email", "label": "Email" },
+    { "id": "phone", "label": "Phone call" },
+    { "id": "whatsapp", "label": "WhatsApp" }
+  ]
+}

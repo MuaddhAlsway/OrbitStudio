@@ -1,0 +1,381 @@
+/* ==================================================================
+   ORBIT STUDIO — cinematic intro ("The Octopus Awakening")
+   Self-contained layer that overlays the app on first visit only.
+   Namespaced `.cl-*`. Preserves the #111c2a identity.
+   ================================================================== */
+
+.cl-app {
+  min-height: 100vh;
+}
+
+.cl-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  overflow: hidden;
+  background-color: #111c2a;
+  color: #f5f7fa;
+  font-family: var(--pf-display, 'Space Grotesk', 'Inter', sans-serif);
+  user-select: none;
+}
+
+.cl-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Panels (the interface that gets pulled apart) ----------------- */
+.cl-panels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cl-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.4%;
+  overflow: hidden;
+  background-color: #111c2a;
+  will-change: transform;
+}
+
+.cl-panel--l {
+  left: 0;
+}
+
+.cl-panel--r {
+  right: 0;
+}
+
+.cl-panel__inner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  background:
+    radial-gradient(140% 90% at 50% 120%, #1b3348 0%, #14263a 46%, #0d1a28 100%);
+}
+
+.cl-panel--l .cl-panel__inner {
+  left: 0;
+}
+
+.cl-panel--r .cl-panel__inner {
+  right: 0;
+}
+
+/* --- Rising water --------------------------------------------------- */
+.cl-water {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100%;
+  will-change: transform;
+  background: linear-gradient(
+    180deg,
+    rgba(96, 150, 186, 0.5) 0%,
+    rgba(44, 78, 108, 0.86) 26%,
+    rgba(21, 43, 65, 0.96) 62%,
+    rgba(11, 22, 36, 1) 100%
+  );
+}
+
+.cl-water__crest {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% - 34px);
+  width: 100%;
+  height: 90px;
+  overflow: visible;
+  animation: cl-wave-bob 4.6s ease-in-out infinite;
+}
+
+.cl-water__wave--back {
+  fill: rgba(140, 190, 220, 0.26);
+}
+
+.cl-water__wave--front {
+  fill: rgba(118, 174, 210, 0.2);
+  animation: cl-wave-bob 6.2s ease-in-out -1.4s infinite;
+}
+
+@keyframes cl-wave-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14%);
+  }
+}
+
+/* --- Stage (octopus + atmosphere) ---------------------------------- */
+.cl-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transform-origin: 50% 55%;
+  will-change: transform;
+}
+
+.cl-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 42% at 50% 42%, rgba(120, 178, 214, 0.22), rgba(120, 178, 214, 0) 70%);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.cl-bubbles {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cl-bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, rgba(214, 236, 250, 0.9), rgba(150, 196, 226, 0.35) 55%, rgba(150, 196, 226, 0) 72%);
+  will-change: transform, opacity;
+}
+
+.cl-octo-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cl-octo {
+  width: auto;
+  height: min(72vh, 560px);
+  overflow: visible;
+  will-change: transform, opacity;
+}
+
+.cl-limb {
+  stroke: url(#clOctoLimb);
+}
+
+.cl-cup {
+  fill: rgba(212, 230, 244, 0.85);
+  opacity: 0;
+}
+
+.cl-submerge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(70, 112, 148, 0.34) 0%,
+    rgba(30, 56, 80, 0.72) 38%,
+    rgba(13, 26, 40, 0.86) 100%
+  );
+  border-top: 1px solid rgba(180, 222, 246, 0.34);
+  box-shadow: inset 0 14px 40px rgba(120, 175, 210, 0.16);
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
+  will-change: transform;
+}
+
+.cl-glass {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(58% 38% at 50% 42%, rgba(184, 224, 248, 0.14), rgba(184, 224, 248, 0) 70%),
+    radial-gradient(120% 60% at 50% 0%, rgba(184, 224, 248, 0.06), rgba(184, 224, 248, 0) 60%);
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+}
+
+.cl-seam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  z-index: 5;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(184, 224, 248, 0), rgba(184, 224, 248, 0.55), rgba(184, 224, 248, 0));
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- UI layer (wordmark + progress) -------------------------------- */
+.cl-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.cl-wordmark-wrap {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-bottom: 7vh;
+}
+
+.cl-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.05rem;
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+.cl-wordmark__mask {
+  display: inline-flex;
+  overflow: hidden;
+  padding: 0 0.08em;
+}
+
+.cl-wordmark__char {
+  display: inline-block;
+  font-family: var(--pf-display, 'Space Grotesk', 'Inter', sans-serif);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 7vw, 5rem);
+  letter-spacing: clamp(0.04em, 0.55vw, 0.14em);
+  line-height: 1.05;
+  color: #f5f7fa;
+  will-change: transform, opacity;
+}
+
+.cl-wordmark__rule {
+  width: clamp(72px, 12vw, 168px);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(183, 241, 223, 0), rgba(183, 241, 223, 0.8), rgba(183, 241, 223, 0));
+  transform-origin: center;
+}
+
+.cl-wordmark__tag {
+  font-family: var(--pf-display, 'Space Grotesk', 'Inter', sans-serif);
+  font-size: clamp(0.6rem, 1.5vw, 0.72rem);
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(245, 247, 250, 0.62);
+}
+
+.cl-progress {
+  position: absolute;
+  left: clamp(1.25rem, 5vw, 3rem);
+  bottom: clamp(1.5rem, 5vw, 2.5rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--pf-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: rgba(245, 247, 250, 0.66);
+}
+
+.cl-progress__track {
+  display: block;
+  width: clamp(84px, 14vw, 168px);
+  height: 1px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.cl-progress__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: var(--pf-accent, #b7f1df);
+}
+
+/* --- Skip intro button --------------------------------------------- */
+.cl-skip {
+  position: absolute;
+  right: clamp(1.25rem, 5vw, 2.5rem);
+  bottom: clamp(1.25rem, 5vw, 2.5rem);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(17, 28, 42, 0.5);
+  color: #eef4fa;
+  font-family: var(--pf-display, 'Space Grotesk', 'Inter', sans-serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.cl-skip svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.cl-skip:hover {
+  background: rgba(183, 241, 223, 0.14);
+  border-color: rgba(183, 241, 223, 0.5);
+}
+
+.cl-skip:focus-visible {
+  outline: 2px solid var(--pf-accent, #b7f1df);
+  outline-offset: 3px;
+}
+
+/* --- Mobile: lighter GPU load -------------------------------------- */
+@media (max-width: 680px) {
+  .cl-octo {
+    height: min(56vh, 360px);
+  }
+
+  .cl-bubble:nth-child(n + 8) {
+    display: none;
+  }
+
+  .cl-submerge,
+  .cl-glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .cl-wordmark__char {
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-water__crest,
+  .cl-water__wave--front {
+    animation: none;
+  }
+}
