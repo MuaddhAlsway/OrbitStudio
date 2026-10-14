@@ -106,8 +106,8 @@ export default function Footer() {
               <h2 className="ft__col-title">Connect</h2>
               <ul className="ft__list" role="list">
                 <li>
-                  <a className="ft__link" href="mailto:hello@manara.sa">
-                    hello@manara.sa
+                  <a className="ft__link" href="mailto:muaddhalsway@gmail.com">
+                    muaddhalsway@gmail.com
                   </a>
                 </li>
                 {whatsappUrl && (

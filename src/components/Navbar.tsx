@@ -571,7 +571,7 @@ export default function Navbar() {
                     <span>WhatsApp</span>
                   </a>
                 )}
-                <a href="mailto:hello@manara.sa">hello@manara.sa</a>
+                <a href="mailto:muaddhalsway@gmail.com">muaddhalsway@gmail.com</a>
                 <span>Riyadh, Saudi Arabia</span>
               </div>
             </div>

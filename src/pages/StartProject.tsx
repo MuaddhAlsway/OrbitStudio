@@ -152,7 +152,7 @@ export default function StartProject() {
 
             <p className="sp-hero__note">
               Prefer email? Write to{' '}
-              <a href="mailto:hello@manara.sa">hello@manara.sa</a>.
+              <a href="mailto:muaddhalsway@gmail.com">muaddhalsway@gmail.com</a>.
             </p>
           </div>
 

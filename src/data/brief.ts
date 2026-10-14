@@ -223,7 +223,7 @@ export async function submitBrief(
     return {
       ok: false,
       message:
-        'We could not reach the server. Please check your connection and try again, or email us at hello@manara.sa.',
+        'We could not reach the server. Please check your connection and try again, or email us at muaddhalsway@gmail.com.',
     }
   }
 }
